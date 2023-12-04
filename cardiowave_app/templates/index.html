@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <style>
+      html, body { 
+        background-color:#ffffff;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden !important;  
+      }
+    </style>
+    
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@latest/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@latest/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module">
+
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';      
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'; 
+
+    var renderer, controls, scene, camera;
+    //for pumping
+    var heartModel; // Reference to the heart model
+
+    // var clock = new THREE.Clock(); // Clock to track animation time
+    // var heartBeatFrequency = 0.5; // Frequency of the heartbeat in beats per second
+    // var maxScale = 1.2; // Maximum scale of the heart (1 is the original size)
+
+
+    window.onload = function() {
+
+      // Three.js code goes here
+      scene = new THREE.Scene();
+
+      // setup the camera
+      var fov = 75;
+      var ratio = window.innerWidth / window.innerHeight;
+      var zNear = 1;
+      var zFar = 10000;
+      camera = new THREE.PerspectiveCamera( fov, ratio, zNear, zFar );
+      camera.position.set(25, -200, 90);
+
+      // create renderer and setup the canvas
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      renderer.setClearColor(0xffffff); // Set the clear color to match your background
+      document.body.appendChild( renderer.domElement );
+
+      // setup lights
+      var ambientLight = new THREE.AmbientLight();
+        scene.add( ambientLight );
+
+      var light = new THREE.DirectionalLight( 0xffffff, 5.0 );
+      light.position.set( -10, -100, -10 );
+      scene.add( light );
+  
+
+      // Load gltf file
+      // var loader = new GLTFLoader();
+      // loader.load( 'heart.glb', function ( gltf ) {
+      //   heartModel = gltf.scenes[0].children[0];
+      //   heartModel.scale.x = 0.5;
+      //   heartModel.scale.y = 0.5;
+      //   heartModel.scale.z = 0.5;
+      //   heartModel.translateX(-50);
+      //   heartModel.translateY(80);
+      //   scene.add(gltf.scene);
+      // });
+
+
+      //display the 6 meshes atrium
+      var loader = new GLTFLoader();
+      loader.load('static/heart.glb', function (gltf) {
+
+        var Object1 = gltf.scene.getObjectByName('RIGHT_ATRIUM');
+        Object1.scale.x = 0.5;
+        Object1.scale.y = 0.5;
+        Object1.scale.z = 0.5;
+        Object1.material = new THREE.MeshStandardMaterial({color: 0x355070});
+
+        var Object2 = gltf.scene.getObjectByName('LEFT_ATRIUM');
+        Object2.scale.x = 0.5;
+        Object2.scale.y = 0.5;
+        Object2.scale.z = 0.5;
+        Object2.material = new THREE.MeshStandardMaterial({color:0x6D597A});
+
+        var Object3 = gltf.scene.getObjectByName('RIGHT_VENTRICLE');
+        Object3.scale.x = 0.5;
+        Object3.scale.y = 0.5;
+        Object3.scale.z = 0.5;
+        Object3.material = new THREE.MeshStandardMaterial({color: 0xB56576});
+
+        var Object4 = gltf.scene.getObjectByName('LEFT_VENTRICLE');
+        Object4.scale.x = 0.5;
+        Object4.scale.y = 0.5;
+        Object4.scale.z = 0.5;
+        Object4.material = new THREE.MeshStandardMaterial({color: 0xE56B6F});
+
+        var Object5 = gltf.scene.getObjectByName('AORTA');
+        Object5.scale.x = 0.5;
+        Object5.scale.y = 0.5;
+        Object5.scale.z = 0.5;
+        Object5.material = new THREE.MeshStandardMaterial({color: 0xEAAC8B});
+
+        var Object6 = gltf.scene.getObjectByName('PULMONARY_ARTERY');
+        Object6.scale.x = 0.5;
+        Object6.scale.y = 0.5;
+        Object6.scale.z = 0.5;
+        Object6.material = new THREE.MeshStandardMaterial({color: 0xB5E48C});
+
+        Object1.visible = true;
+        Object4.visible = true;
+        Object3.visible = true;
+        Object4.visible = true;
+        Object5.visible = true;
+        Object6.visible = true;
+
+        scene.add(Object1);
+        scene.add(Object2);
+        scene.add(Object3);
+        scene.add(Object4);
+        scene.add(Object5);
+        scene.add(Object6);
+
+      });
+          
+      
+      // Insert the traverse function here
+      // gltf.scene.traverse(function (child) {
+      //   if (child.isMesh) {
+      //     console.log(child);
+      //   }
+      // });
+
+
+        controls = new OrbitControls( camera, renderer.domElement );
+        animate();
+                
+};
+
+
+function animate() {
+    requestAnimationFrame( animate );
+
+    // for pumping
+    // var elapsedTime = clock.getElapsedTime(); // Get elapsed time in seconds
+    // var heartScale = 1 + Math.sin(elapsedTime * heartBeatFrequency * Math.PI * 2) * (maxScale - 1) / 2;
+
+    // if (heartModel) {
+    //   heartModel.scale.set(heartScale, heartScale, heartScale); // Scale the heart model
+    // }
+
+   
+    controls.update();
+    renderer.render( scene, camera );
+
+    }; 
+  </script>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+          // $('#loadData').click(function(){
+          $.getJSON('/ecg_data', function(data){
+              console.log(data.signal)
+              console.log(data.rpeaks)
+          });
+          // });
+      });
+  </script>
+
+
+</body>
+</html>
