@@ -14,7 +14,7 @@ Ensure you have Python installed on your system. Project Cardiowave uses Python 
 
 `biosppy` is a library that allows for easy ECG signal processing. Install it using pip:
 
-```bash
+
 pip install biosppy
 
 
@@ -22,6 +22,6 @@ pip install biosppy
 
 `neurokit` is another powerful library used for advanced biosignal processing. Install it using pip:
 
-```bash
+
 pip install neurokit2
 
