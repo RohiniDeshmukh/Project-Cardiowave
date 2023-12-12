@@ -17,28 +17,11 @@ Ensure you have Python installed on your system. Project Cardiowave uses Python 
 ```bash
 pip install biosppy
 
-import numpy as np
-from biosppy.signals import ecg
 
-# load raw ECG signal
-signal = np.loadtxt('./examples/ecg.txt')
+### Installing neurokit
 
-# process it and plot
-out = ecg.ecg(signal=signal, sampling_rate=1000., show=True)
+`neurokit` is another powerful library used for advanced biosignal processing. Install it using pip:
 
-
-Installing neurokit
-neurokit is another powerful library used for advanced biosignal processing. Install it using pip:
-
+```bash
 pip install neurokit2
 
-import neurokit2 as nk
-
-# Download example data
-data = nk.data("bio_eventrelated_100hz")
-
-# Preprocess the data (filter, find peaks, etc.)
-processed_data, info = nk.bio_process(ecg=data["ECG"], sampling_rate=100)
-
-# Compute relevant features
-results = nk.bio_analyze(processed_data, sampling_rate=100)
