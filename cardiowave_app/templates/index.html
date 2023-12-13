@@ -87,7 +87,7 @@
           { name: 'LEFT_ATRIUM', color: 0x6D597A },
           { name: 'RIGHT_VENTRICLE', color: 0xB56576 },
           { name: 'LEFT_VENTRICLE', color: 0xE56B6F },
-          { name: 'AORTA', color: 0xEAAC8B },
+          { name: 'AORTA', color: 0x88B2CC },
           { name: 'PULMONARY_ARTERY', color: 0xB5E48C },
         ];
 
@@ -97,6 +97,8 @@
           object.material = new THREE.MeshStandardMaterial({ color: objInfo.color });
           object.visible = true;
           scene.add(object);
+          // Rotate the model on the Y-axis
+          // object.rotation.x = Math.PI / 4; // Rotate by 45 degrees
         }
 
 
